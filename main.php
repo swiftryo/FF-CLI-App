@@ -2,13 +2,17 @@
 
 // echo "処理のはじまり〜〜〜！\n\n";
 
+//親クラスから小クラスを定義することを特化　（その逆を汎化） 
+
+
 // ファイルロード
 require_once('./classes/Human.php');
 require_once('./classes/Enemy.php');
+require_once('./classes/Brave.php');
 
 // 設計図を使って大工さんが木材などを組み立てる作業=インスタンス化
 // インスタンス化  new[クラス名]キーワードを使う
-$tiida = new Human();
+$tiida = new Brave();
 // Humanクラスのインスタンスを$tiidaに代入している感じ
 $goblin = new Enemy();
 
