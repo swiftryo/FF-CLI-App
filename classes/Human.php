@@ -40,10 +40,19 @@ class Human
         $this->attackPoint = $attackPoint;
     }
     
-    public function doAttack($enemy)
+    public function doAttack($enemies)
     // 攻撃するメソッド
     // メソッドを定義(メソッド名) (関数名)
     {
+        
+        // チェック１：自身のHPが0かどうか
+        if ($this->hitPoint <= 0) {
+            return false;
+        }
+
+
+        $enemyIndex = rand(0, count($enemies) - 1); // 添字は0から始まるので、-1する
+        $enemy = $enemies[$enemyIndex];
         // $this 自分自身のクラスを指すキーワード(Humanクラス)
         echo "『" .$this->getName() . "』の攻撃!\n";
         echo "【" .$enemy->getName() . "】に" .$this->attackPoint. "のダメージ!!\n";
@@ -64,6 +73,7 @@ class Human
     public function recoveryDamage($heal, $target)
     {
         $this->hitPoint += $heal;
+        // 最大値を超えて回復しない
         if ($this->hitPoint > $target::MAX_HITPOINT) {
             $this->hitPoint = $target::MAX_HITPOINT;
         }
