@@ -12,14 +12,41 @@ class Human
     private $attackPoint = 20;
     // 攻撃力
     
+    public function getName()
+    // ゲッター
+    {
+        return $this->name;
+    }
+    
+    
+    // セッター クラス定義に初期値が与えられているものはセッターは不要
+    
+    public function getHitPoint()
+    {
+        return $this->hitPoint;
+    }
+
+    public function getAttackPoint()
+    {
+        return $this->attackPoint;
+    }
+    
+    // コンストラクタ
+    // phpのコンストラクタメソッドの書き方は必ずこのフォーマット
+    public function __construct($name, $hitPoint = 100, $attackPoint = 20)
+    {
+        $this->name = $name;
+        $this->hitPoint = $hitPoint;
+        $this->attackPoint = $attackPoint;
+    }
     
     public function doAttack($enemy)
     // 攻撃するメソッド
     // メソッドを定義(メソッド名) (関数名)
     {
         // $this 自分自身のクラスを指すキーワード(Humanクラス)
-        echo "『" .$this->name . "』の攻撃!\n";
-        echo "【" .$enemy->name . "】に" .$this->attackPoint. "のダメージ!!\n";
+        echo "『" .$this->getName() . "』の攻撃!\n";
+        echo "【" .$enemy->getName() . "】に" .$this->attackPoint. "のダメージ!!\n";
         $enemy->tookDamage($this->attackPoint);
     }
     
@@ -33,4 +60,13 @@ class Human
         }
         // HPが0未満に成らないための処理 0未満は0
     }
+    
+    public function recoveryDamage($heal, $target)
+    {
+        $this->hitPoint += $heal;
+        if ($this->hitPoint > $target::MAX_HITPOINT) {
+            $this->hitPoint = $target::MAX_HITPOINT;
+        }
+    }
+    
 }

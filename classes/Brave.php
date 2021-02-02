@@ -7,15 +7,21 @@ class Brave extends Human
     private $hitPoint = self::MAX_HITPOINT;
     private $attackPoint = 30;
     
+    public function __construct($name)
+    // 明示的にプロパティを書き換える必要がある
+    {
+        parent::__construct($name, $this->hitPoint, $this->attackPoint);
+    }
+    
     public function doAttack($enemy)
     {
         // 乱数の発動
         if (rand(1,3) === 1){
             // 1/3の確率でスキルを発動
             // スキルの発動
-            echo "『" .$this->name . "』のスキルが発動した!\n";
+            echo "『" .$this->getName() . "』のスキルが発動した!\n";
             echo "『ぜんりょくぎり』!!\n";
-            echo $enemy->name . "に" . $this->attackPoint * 1.5 . "のダメージ!\n";
+            echo $enemy->getName() . "に" . $this->attackPoint * 1.5 . "のダメージ!\n";
             $enemy->tookDamage($this->attackPoint * 1.5);
         } else {
             parent::doAttack($enemy);
@@ -34,3 +40,7 @@ class Brave extends Human
 // public : クラスの中ｍ外関係なく使用可能 
 // すべてpublicは良くない 適切なアクセスレベルが設定されていないことはバグを生みやすくなる
 // 基本原則としてプロパティはprivate(場合によってはprotected)にすることを目指す
+
+// アクセサーメソッド1　コンストラクタ2　オブジェクト指向に欠かせない存在
+// 1 プロパティにアクセスするためのメソッド ゲッター、セッター プロパティ名の1文字目は大文字
+// 2 一つのクラスに一つのみ存在しプロパティの初期値を与えるのによく使われる
