@@ -5,11 +5,11 @@ class Human
     // プロパティ
     const MAX_HITPOINT = 100;
     // 最大HP const=定数=再代入できない
-    public $name;
+    private $name;
     // キャラの名前
-    public $hitPoint = 100;
+    private $hitPoint = 100;
     // 現在のHP
-    public $attackPoint = 20;
+    private $attackPoint = 20;
     // 攻撃力
     
     

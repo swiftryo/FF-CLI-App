@@ -4,8 +4,8 @@ class Brave extends Human
 // class [クラス名] extends [継承元クラス名]
 {
     const MAX_HITPOINT = 120;
-    public $hitPoint = self::MAX_HITPOINT;
-    public $attackPoint = 30;
+    private $hitPoint = self::MAX_HITPOINT;
+    private $attackPoint = 30;
     
     public function doAttack($enemy)
     {
@@ -24,6 +24,13 @@ class Brave extends Human
     }
 }
 
+// オブジェクト指向3原則
 // オーバーライド 
 // ポリモーフィズム
+
 // カプセル化
+// private : 宣言されたクラスの中でのみ使用可能
+// protected : 宣言されたクラスまたは、継承先クラスでのみ使用可能
+// public : クラスの中ｍ外関係なく使用可能 
+// すべてpublicは良くない 適切なアクセスレベルが設定されていないことはバグを生みやすくなる
+// 基本原則としてプロパティはprivate(場合によってはprotected)にすることを目指す
