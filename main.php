@@ -6,6 +6,7 @@
 
 
 // ファイルロード
+require_once('./classes/Lives.php');
 require_once('./classes/Human.php');
 require_once('./classes/Enemy.php');
 require_once('./classes/Brave.php');
