@@ -1,27 +1,41 @@
 <?php
 
+// 共通ライブラリ、共通関数はなるべく作らないほうが良い
+// isFinishメソッドがここにあるのはあまりいい状態ではない
+
 // echo "処理のはじまり〜〜〜！\n\n";
 
 //親クラスから小クラスを定義することを特化　（その逆を汎化） 
 
 
 // ファイルロード
-require_once('./classes/Human.php');
-require_once('./classes/Enemy.php');
-require_once('./classes/Brave.php');
-require_once('./classes/BlackMage.php');
-require_once('./classes/Message.php');
-require_once('./classes/WhiteMage.php');
+// require_once('./classes/Lives.php');
+// require_once('./classes/Human.php');
+// require_once('./classes/Enemy.php');
+// require_once('./classes/Brave.php');
+// require_once('./classes/BlackMage.php');
+// require_once('./classes/Message.php');
+// require_once('./classes/WhiteMage.php');
+
+require_once('./lib/Loader.php');
+require_once('./lib/Utility.php');
+ 
+// オートロード
+$loader = new Loader();
+// classesフォルダの中身をロード対象ディレクトリとして登録
+$loader->regDirectory(__DIR__ . '/classes');
+$loader->regDirectory(__DIR__ . '/classes/constants');
+$loader->register();
+
 
 $members = array();
-$members[] = new Brave('ティーダ');
-$members[] = new WhiteMage('ユウナ');
-$members[] = new BlackMage('ルールー');
-
+$members[] = new Brave(CharacterName::TIIDA);
+$members[] = new WhiteMage(CharacterName::YUNA);
+$members[] = new BlackMage(CharacterName::RULU);
 $enemies = array();
-$enemies[] = new Enemy('ゴブリン', 20);
-$enemies[] = new Enemy('ボム', 25);
-$enemies[] = new Enemy('モルボル', 30);
+$enemies[] = new Enemy(EnemyName::GOBLINS, 20);
+$enemies[] = new Enemy(EnemyName::BOMB, 25);
+$enemies[] = new Enemy(EnemyName::MORBOL, 30);
 
 // 設計図を使って大工さんが木材などを組み立てる作業=インスタンス化
 // インスタンス化  new[クラス名]キーワードを使う
@@ -33,23 +47,6 @@ $turn = 1;
 // どちらかのHPが0になるまで繰り返す
  $isFinishFlg = false;
  $messageObj = new Message;
- 
-   // 終了条件の判定
-  function isFinish($objects)
-  {
-      $deathCnt = 0; // HPが0以下の仲間の数
-      foreach ($objects as $object) {
-          // １人でもHPが０を超えていたらfalseを返す
-          if ($object->getHitPoint() > 0) {
-              return false;
-          }
-          $deathCnt++;
-      }
-      // 仲間の数が死亡数(HPが０以下の数)と同じであればtrueを返す
-      if ($deathCnt === count($objects)) {
-          return true;
-      }
-  }
 
  while (!$isFinishFlg) {    
      echo "★★★$turn ターン目 ★★★\n\n";
